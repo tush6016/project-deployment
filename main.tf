@@ -1,11 +1,11 @@
 resource "aws_instance" "eks-master" {
-    ami = "ami-0f924dc71d44d23e2"
-    instance_type = "t3.small"
-    key_name = "gen"
-    
-                    
-    tags = {
-      Name = "eks"
-    }
-  
+  ami           = var.ami
+  instance_type = var.instance_type
+  key_name      = var.key_name
+
+
+  tags = {
+    Name = var.tag_name
+  }
+
 }
