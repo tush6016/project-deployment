@@ -23,3 +23,9 @@ variable "ami" {
   default     = "ami-0f924dc71d44d23e2"
 
 }
+
+variable "aws_security_group" {
+  description = "Name of security group"
+  default     = "eks-security-group"
+
+}
