@@ -18,9 +18,9 @@ variable "tag_name" {
   default     = "eks-master"
 }
 
-variable "ami_type" {
-  description = "AMI type for AmazonLinux2 EC2 instance"
-  default     = "AL2_x86_64"
+variable "ami" {
+  description = "AMI ID for AmazonLinux2 EC2 instance"
+  default     = "ami-01216e7612243e0ef"
 
 }
 
