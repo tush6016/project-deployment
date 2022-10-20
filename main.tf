@@ -30,7 +30,7 @@ resource "aws_security_group" "my_security_group" {
 }
 
 resource "aws_instance" "eks-master" {
-  ami             = var.ami
+  ami             = var.ami_type
   instance_type   = var.instance_type
   key_name        = var.key_name
   security_groups = [var.aws_security_group]
