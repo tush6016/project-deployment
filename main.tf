@@ -1,6 +1,7 @@
 resource "aws_security_group" "my_security_group" {
-  name        = var.aws_security_group
+  name        = "eks-master-sg"
   description = "security group for Ec2 instance"
+  vpc_id      = aws_vpc.master-vpc.id
 
   ingress {
     from_port   = 8080
@@ -25,15 +26,16 @@ resource "aws_security_group" "my_security_group" {
   }
 
   tags = {
-    Name = var.aws_security_group
+    Name = "eks-master-sg"
   }
 }
 
 resource "aws_instance" "eks-master" {
-  ami             = var.ami
-  instance_type   = var.instance_type
-  key_name        = var.key_name
-  security_groups = [var.aws_security_group]
+  ami                         = var.ami
+  instance_type               = var.instance_type
+  key_name                    = var.key_name
+  subnet_id                   = aws_subnet.public-subnet-1.id
+  
 
 
   tags = {

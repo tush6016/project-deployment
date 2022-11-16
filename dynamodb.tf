@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "terraform_locks" {
-  name         = "terraform-up-and-running-locks"
+  name         = "eks-master-state"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
 
@@ -8,4 +8,3 @@ resource "aws_dynamodb_table" "terraform_locks" {
     type = "S"
   }
 }
-
