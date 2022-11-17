@@ -7,6 +7,7 @@ resource "aws_vpc" "master-vpc" {
   }
 }
 
+
 resource "aws_internet_gateway" "internet-gateway" {
   vpc_id = aws_vpc.master-vpc.id
   tags = {
@@ -14,13 +15,13 @@ resource "aws_internet_gateway" "internet-gateway" {
   }
 }
 
-resource "aws_subnet" "public-subnet-1" {
+resource "aws_subnet" "subnet-1" {
   vpc_id                  = aws_vpc.master-vpc.id
-  cidr_block              = var.Public_Subnet_1
+  cidr_block              = var.Subnet_1
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "public-subnet-1"
+    Name = "subnet-1"
   }
 }
 
@@ -36,16 +37,35 @@ resource "aws_route_table" "public-route-table" {
 }
 
 resource "aws_route_table_association" "public-subnet-1-route-table-association" {
-  subnet_id      = aws_subnet.public-subnet-1.id
+  subnet_id      = aws_subnet.subnet-1.id
   route_table_id = aws_route_table.public-route-table.id
 }
 
-resource "aws_subnet" "private-subnet-1" {
-  vpc_id                  = aws_vpc.master-vpc.id
-  cidr_block              = var.Private_Subnet_1
-  availability_zone       = "us-east-1a"
-  map_public_ip_on_launch = false
+
+resource "aws_security_group" "my_security_group" {
+  name        = "eks-master-sg"
+  description = "security group for Ec2 instance"
+  vpc_id      = aws_vpc.master-vpc.id
+
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # outbound from jenkis server
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
-    Name = "private-subnet-1"
+    Name = "eks-master-sg"
   }
 }
+
+
