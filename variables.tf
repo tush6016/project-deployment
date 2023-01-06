@@ -20,7 +20,7 @@ variable "tag_name" {
 
 variable "ami" {
   description = "AMI ID for AmazonLinux2 EC2 instance"
-  default     = "ami-0beaa649c482330f7"
+  default     = "ami-0a606d8395a538502"
 
 }
 
